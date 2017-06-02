@@ -19,10 +19,15 @@ const HEROES: Hero[] = [
   template: `<h1>Tour of heroes</h1>
   <h2>My heroes</h2>
   <ul class="heroes">
-    <li *ngFor="let hero of heroes">
+    <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li>
-  </ul>`,
+  </ul>
+  <div *ngIf="selectedHero">
+  <h2>{{selectedHero.name}} details!</h2>
+  <div><label>id: </label>{{selectedHero.id}}</div>
+  <div><label>name: </label> <input [(ngModel)]="selectedHero.name" placeholder="name" /></div>
+  </div>`,
   styles: [`
     .selected {
   background-color: #CFD8DC !important;
@@ -75,4 +80,9 @@ const HEROES: Hero[] = [
 })
 export class AppComponent  {
   heroes = HEROES;
+  selectedHero: Hero;
+
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
 }
